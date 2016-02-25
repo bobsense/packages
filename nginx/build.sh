@@ -37,18 +37,17 @@ if [ x"$LOCALARCH" = x"aarch64" ]; then
     sudo apt-get install g++ <<EOF
 Y
 EOF
-    pcre_path="$ROOTFS/usr/local/pcre"
-    if [ ! -d "$pcre_path" ]; then
-    	cd $current_dir/pcre-8.37
-    	autoreconf -f -i
-        ./configure --prefix=$ROOTFS/usr/local/pcre
-    	make -j${corenum} 
-    	sudo make install
-    fi
+    cd $current_dir/pcre-8.37
+    autoreconf -f -i
+    ./configure --prefix=$ROOTFS/usr/local/pcre
+    make -j${corenum} 
+    sudo make install
+    
     cd $current_dir/zlib-1.2.8
     ./configure --prefix=$ROOTFS/usr/local/zlib
     make -j${corenum}
     sudo make install
+   
     cd $current_dir/nginx-1.8.0
     ./configure --prefix=$ROOTFS/usr/local/nginx --with-pcre=$current_dir/pcre-8.37 --with-zlib=$current_dir/zlib-1.2.8
     make -j${corenum}

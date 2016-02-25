@@ -50,15 +50,12 @@ EOF
     sudo make install
     echo "apr-util install finished"
     
-    pcre_path="$ROOTFS/usr/local/pcre" 
-    if [ ! -d "$pcre_path" ]; then
-    	cd $current_dir/pcre-8.37
-        autoreconf -f -i
-    	./configure --prefix=$ROOTFS/usr/local/pcre
-    	make -j${corenum}
-   	sudo make install
-        echo "pcre install finished"
-    fi
+    cd $current_dir/pcre-8.37
+    autoreconf -f -i
+    ./configure --prefix=$ROOTFS/usr/local/pcre
+    make -j${corenum}
+    sudo make install
+    echo "pcre install finished"
     
     cd $current_dir/httpd-2.2.29
     ./configure --prefix=$ROOTFS/usr/local/apache2 --with-apr=$ROOTFS/usr/local/apr --with-apr-util=$ROOTFS/usr/local/apr-util --with-pcre=$ROOTFS/usr/local/pcre -with-mpm=worker

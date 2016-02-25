@@ -23,6 +23,7 @@ fi
 ROOTFS=$3
 
 current_dir=`pwd`/packages/redis
+corenum=`cat /proc/cpuinfo | grep "processor"| wc -l`
 echo "---- $current_dir ----"
 
 ###################################################################################
@@ -35,7 +36,7 @@ fi
 
 if [ x"$LOCALARCH" = x"aarch64" ]; then
     cd $current_dir/redis-3.0.7
-    make MALLOC=libc
+    make -j${corenum}
     mkdir $ROOTFS/usr/local/redis
     sudo cp redis.conf $ROOTFS/usr/local/redis
     cd ./src

@@ -35,7 +35,7 @@ fi
 
 if [ x"$LOCALARCH" = x"aarch64" ]; then
     cd $current_dir/redis-3.0.7
-    make
+    make MALLOC=libc
     mkdir $ROOTFS/usr/local/redis
     sudo cp redis.conf $ROOTFS/usr/local/redis
     cd ./src

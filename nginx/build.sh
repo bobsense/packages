@@ -40,7 +40,8 @@ EOF
     pcre_path="$ROOTFS/usr/local/pcre"
     if [ ! -d "$pcre_path" ]; then
     	cd $current_dir/pcre-8.37
-    	./configure --prefix=$ROOTFS/usr/local/pcre
+    	autoreconf -f -i
+        ./configure --prefix=$ROOTFS/usr/local/pcre
     	make -j${corenum} 
     	sudo make install
     fi
